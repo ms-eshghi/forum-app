@@ -1,7 +1,7 @@
 
 
 const listOfUser = async () => {
-    const token = localStorage.getItem("auth_token")
+    const token = localStorage.getItem("auth")
 
     if(!token) return
 
@@ -31,9 +31,7 @@ const listOfUser = async () => {
 listOfUser()
 
 const logout = () => {
-    localStorage.removeItem("auth_token")
-    setTimeout(() => {
+    localStorage.removeItem("auth")
     window.location.href="../login.html";
-}, 100);
 }
 document.getElementById("logout").addEventListener("click", logout)

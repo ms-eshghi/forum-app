@@ -27,12 +27,11 @@ const fetchData = async (event) => {
 
               const data = await response.json();
             if (data.token) {
-  localStorage.setItem('auth_token', data.token);  
-  setTimeout(() => {
+  localStorage.setItem('auth', data.token);  
   window.location.href = '../index.html';          
-},200) ;            
+};            
         }
-    }
+    
     } catch (error) {
         console.log(`Error while trying to register: ${error.message}`)
     }
