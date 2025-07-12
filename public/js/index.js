@@ -1,7 +1,7 @@
 
 
 const listOfUser = async () => {
-    const token = localStorage.getItem("auth")
+    const token = localStorage.getItem("token")
 
     if(!token) return
 
@@ -18,7 +18,7 @@ const listOfUser = async () => {
         const data = await response.json()
         let users = ''
         data.map(user => {
-            users += `<li>email ${user.email}</li> <li>password: ${user.password}</li>`
+            users += `<li>email: ${user.email}</li> <li>password: ${user.password}</li>`
         })
         document.getElementById("user-list").innerHTML = users
 
@@ -31,7 +31,7 @@ const listOfUser = async () => {
 listOfUser()
 
 const logout = () => {
-    localStorage.removeItem("auth")
+    localStorage.removeItem("token")
     window.location.href="../login.html";
 }
 document.getElementById("logout").addEventListener("click", logout)
