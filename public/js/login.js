@@ -22,17 +22,17 @@ const fetchData = async (event) => {
         })
         if (!response.ok) {
             document.getElementById("error").innerText = "Error when trying to login. Please try again."
+        return
         } else {
-            const data = await response.json()
-            
-            if(data.token) {
-                localStorage.setItem("auth_token", data.token)
-                window.location.href = "../index.html" // Redirect to the main page after successful login
 
-            }
-            
+              const data = await response.json();
+            if (data.token) {
+  localStorage.setItem('auth_token', data.token);  
+  setTimeout(() => {
+  window.location.href = '../index.html';          
+},200) ;            
         }
-
+    }
     } catch (error) {
         console.log(`Error while trying to register: ${error.message}`)
     }

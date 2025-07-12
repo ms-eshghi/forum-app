@@ -32,7 +32,8 @@ listOfUser()
 
 const logout = () => {
     localStorage.removeItem("auth_token")
-    window.location.href="../index.html";
+    setTimeout(() => {
+    window.location.href="../login.html";
+}, 100);
 }
-
 document.getElementById("logout").addEventListener("click", logout)
