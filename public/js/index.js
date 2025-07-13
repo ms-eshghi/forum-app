@@ -30,8 +30,12 @@ const listOfUser = async () => {
 
 listOfUser()
 
-const logout = () => {
-    localStorage.removeItem("token")
-    window.location.href="../login.html";
-}
-document.getElementById("logout").addEventListener("click", logout)
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("logout");
+  if (logoutBtn) {
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem("token");
+      window.location.href = "./login.html";
+    });
+  }
+});
