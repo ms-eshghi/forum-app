@@ -28,9 +28,15 @@ const listOfUser = async () => {
 }
 
 
-listOfUser()
+
 
 document.addEventListener("DOMContentLoaded", () => {
+
+  const token = localStorage.getItem("token");
+  if (!token) {
+    window.location.href = "../login.html";
+    return;
+  }
   const logoutBtn = document.getElementById("logout");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
@@ -39,3 +45,4 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 });
+listOfUser()
