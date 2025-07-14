@@ -28,7 +28,7 @@ const fetchData = async (event) => {
               const data = await response.json();
             if (data.token) {
   localStorage.setItem('token', data.token);  
-  window.location.href = '../index.html';          
+  window.location.href = '/';          
 };            
         }
     
