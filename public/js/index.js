@@ -34,15 +34,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const token = localStorage.getItem("token");
   if (!token) {
-    window.location.href = "../login.html";
+    window.location.href = "login.html";
     return;
   }
+  listOfUser();
+
   const logoutBtn = document.getElementById("logout");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", () => {
       localStorage.removeItem("token");
-      window.location.href = "../login.html";
+      window.location.href = "login.html";
     });
   }
 });
-listOfUser()
