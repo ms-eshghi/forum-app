@@ -1,50 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
     <title>Forum App</title>
     <script src="./js/index.js" defer></script>
-</head>
-<body>
-    <navbar>
-   <nav>
-    <div class="nav-wrapper">
-      <ul class="right">
-        <li>
-          <form id="loginForm" class="row">
-            <div class="input-field col">
-              <input id="email" class="navbar-input" type="email" placeholder="Email">
-            </div>
-            <div class="input-field col">
-              <input id="password" class="navbar-input" type="password" placeholder="Password">
-            </div>
-            <div class="col">
-              <button type="submit" class="btn waves-effect waves-light">Login</button>
-            </div>
-            <div class="col">
-              <a href="register.html" class="btn waves-effect waves-light">Register</a>
-            </div>
-          </form>
-        </li>
-        <li id="logout-li">
-         
-<button id="logoutBtn" style="display:none;" class="btn waves-effect waves-light">Logout</button>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <ul class="right">
+          <li>
+            <form id="loginForm" class="row">
+              <div class="input-field col">
+                <input
+                  id="email"
+                  class="navbar-input"
+                  type="email"
+                  placeholder="Email"
+                />
+              </div>
+              <div class="input-field col">
+                <input
+                  id="password"
+                  class="navbar-input"
+                  type="password"
+                  placeholder="Password"
+                />
+              </div>
+              <div class="col">
+                <button type="submit" class="btn waves-effect waves-light">
+                  Login
+                </button>
+              </div>
+              <div class="col">
+                <a href="register.html" class="btn waves-effect waves-light"
+                  >Register</a
+                >
+              </div>
+            </form>
+          </li>
+          <li id="logout-li">
+            <button
+              id="logoutBtn"
+              style="display: none"
+              class="btn waves-effect waves-light"
+            >
+              Logout
+            </button>
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-      </li>
-      </ul>
+    <div class="container">
+      <div id="topicForm"></div>
+      <div id="topics"></div>
     </div>
-  </nav>
-  </navbar>
 
-  <div class="container">
-    <div id="topicForm"></div>
-    <div id="topics"></div>
-  </div>
-
-
-</body>
-
+    <div> <button id="clearStorageBtn">Clear Storage</button></div>
+  </body>
 </html>

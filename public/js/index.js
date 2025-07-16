@@ -99,7 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const delBtn = document.createElement('button');
       delBtn.className = 'btn waves-effect waves-light';
       delBtn.textContent = 'Delete';
-      delBtn.id = 'deleteTopic';
+      delBtn.classList.add('deleteTopic');
 
       delBtn.onclick = async () => {
         const res = await fetch(`/api/topic/${topic._id}`, {
@@ -134,7 +134,9 @@ window.addEventListener('DOMContentLoaded', () => {
         <div class="input-field">
           <textarea id="topicText" class="materialize-textarea" placeholder="Write your post..."></textarea>
         </div>
+        <div>
         <button id="postTopic" class="btn waves-effect waves-light" type="submit">Post</button>
+        </div>
       `;
 
       document.getElementById('postTopic').addEventListener('click', async () => {
@@ -155,3 +157,7 @@ window.addEventListener('DOMContentLoaded', () => {
     fetchTopics();
 
     
+ document.getElementById('clearStorageBtn').addEventListener('click', () => {
+    localStorage.clear();
+    location.reload();
+  });
