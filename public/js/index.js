@@ -95,7 +95,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const delBtn = document.createElement('button');
         delBtn.className = 'btn waves-effect waves-light';
         delBtn.textContent = 'Delete';
-        delBtn.id = 'deleteTopic';
+        delBtn.classList.add('deleteTopic');
         delBtn.onclick = async () => {
           const res = await fetch(`/api/topic/${topic._id}`, {
             method: 'DELETE',
