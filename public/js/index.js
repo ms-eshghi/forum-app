@@ -21,12 +21,13 @@ let token = null;
 
          const payload = JSON.parse(atob(token.split('.')[1]));
   localStorage.setItem('isAdmin', payload.isAdmin);
+  isAdmin = payload.isAdmin;
          
          loginForm.style.display = 'none';
       if (logoutBtn) logoutBtn.style.display = 'inline-block';
 
         renderPostForm();
-        fetchTopics(payload.isAdmin);
+        fetchTopics(isAdmin);
       } else {
         alert(data.message || data.errors?.map(e => e.msg).join(', '));
       }
@@ -42,21 +43,23 @@ if (logoutBtn) {
   token = null;
   localStorage.removeItem('token');
   localStorage.removeItem('isAdmin');
+isAdmin = false;
 
    loginForm.style.display = 'block';
     logoutBtn.style.display = 'none';
 
  
   document.getElementById('topicForm').innerHTML = '';
-  fetchTopics();
+  fetchTopics(isAdmin);
 });
 }
 
 // Topic rendering and fetching
-
+let isAdmin = false;
 window.addEventListener('DOMContentLoaded', () => {
   token = localStorage.getItem('token');
  const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
 
   if (token) {
     loginForm.style.display = 'none';
