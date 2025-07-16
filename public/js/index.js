@@ -19,11 +19,14 @@ let token = null;
          token = data.token; 
          localStorage.setItem('token', data.token);
 
-          loginForm.style.display = 'none';
+         const payload = JSON.parse(atob(token.split('.')[1]));
+  localStorage.setItem('isAdmin', payload.isAdmin);
+         
+         loginForm.style.display = 'none';
       if (logoutBtn) logoutBtn.style.display = 'inline-block';
 
         renderPostForm();
-        fetchTopics();
+        fetchTopics(payload.isAdmin);
       } else {
         alert(data.message || data.errors?.map(e => e.msg).join(', '));
       }
@@ -38,12 +41,10 @@ if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
   token = null;
   localStorage.removeItem('token');
+  localStorage.removeItem('isAdmin');
 
    loginForm.style.display = 'block';
     logoutBtn.style.display = 'none';
-
-  loginForm.style.display = 'block';
-  logoutBtn.style.display = 'none';
 
  
   document.getElementById('topicForm').innerHTML = '';
@@ -55,6 +56,8 @@ if (logoutBtn) {
 
 window.addEventListener('DOMContentLoaded', () => {
   token = localStorage.getItem('token');
+ const isAdmin = localStorage.getItem('isAdmin') === 'true';
+
   if (token) {
     loginForm.style.display = 'none';
      if (logoutBtn) logoutBtn.style.display = 'inline-block';
@@ -63,10 +66,10 @@ window.addEventListener('DOMContentLoaded', () => {
     loginForm.style.display = 'block';
     logoutBtn.style.display = 'none';
   }
-  fetchTopics();
+  fetchTopics(isAdmin);
 });
 
-    async function fetchTopics() {
+    async function fetchTopics(isAdmin = false) {
       const res = await fetch('/api/topics');
       const topics = await res.json();
       const container = document.getElementById('topics');
@@ -92,29 +95,35 @@ window.addEventListener('DOMContentLoaded', () => {
         const actions = document.createElement('div');
         actions.className = 'card-action';
 
-        const delBtn = document.createElement('button');
-        delBtn.className = 'btn waves-effect waves-light';
-        delBtn.textContent = 'Delete';
-        delBtn.classList.add('deleteTopic');
-        delBtn.onclick = async () => {
-          const res = await fetch(`/api/topic/${topic._id}`, {
-            method: 'DELETE',
-            headers: { 'Authorization': `Bearer ${token}` }
-          });
-          const result = await res.json();
-          if (res.ok) fetchTopics();
-          else alert(result.message);
-        };
+          if (isAdmin) {
+      const delBtn = document.createElement('button');
+      delBtn.className = 'btn waves-effect waves-light';
+      delBtn.textContent = 'Delete';
+      delBtn.id = 'deleteTopic';
 
-        actions.appendChild(delBtn);
-        content.appendChild(title);
-        content.appendChild(body);
-        content.appendChild(meta);
-        card.appendChild(content);
-        card.appendChild(actions);
-        container.appendChild(card);
-      });
+      delBtn.onclick = async () => {
+        const res = await fetch(`/api/topic/${topic._id}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        const result = await res.json();
+        if (res.ok){
+          alert(result.message); 
+          fetchTopics(isAdmin);
+        }  
+        else alert(result.message);
+      };
+      actions.appendChild(delBtn);
     }
+
+    content.appendChild(title);
+    content.appendChild(body);
+    content.appendChild(meta);
+    card.appendChild(content);
+    card.appendChild(actions);
+    container.appendChild(card);
+  });
+}
 
     function renderPostForm() {
       const form = document.getElementById('topicForm');
