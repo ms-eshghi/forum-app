@@ -1,150 +1,56 @@
-JWT Authentication with Express & TypeScript
-Overview
-This project demonstrates a simple web application backend that implements user authentication using JWT (JSON Web Tokens). It includes:
+# Forum App with Authentication (TypeScript + Node.js + MongoDB)
 
-User registration with hashed passwords (bcrypt)
+A simple forum application built with Node.js, Express, TypeScript, and MongoDB. Includes features for user registration, login with JWT authentication, and posting/deleting topics with role-based access.
 
-User login with JWT token generation
+## Features
 
-A protected route accessible only with valid JWT token
+- User Registration & Login
+- JWT Authentication & Role-based Access (Admin)
+- Authenticated Users Can Post Topics
+- Admins Can Delete Any Topic
+- Built with Express.js, Mongoose, and TypeScript
+- Clean UI with MaterializeCSS
 
-Basic frontend pages for register, login, and protected content
+- **Frontend**: HTML, CSS (Materialize), JavaScript
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB + Mongoose
+- **Auth**: JSON Web Tokens (JWT)
+- **Security**: bcrypt for password hashing
+- **Validation**: express-validator
+- **Language**: TypeScript
 
-Token storage in localStorage on client side
+1. Clone the Repository
 
-Features
-POST /api/user/register: Register new users with email and password. Passwords are securely hashed using bcrypt. Prevents duplicate email registration.
+git remote add origin https://github.com/ms-eshghi/forum-app.git
+cd forum-app
 
-POST /api/user/login: Authenticate user credentials and return a signed JWT token.
+2. Install Dependencies
+   npm install
 
-GET /api/private: Protected route that requires a valid JWT token.
+3. Create a .env File
+   SECRET=your_jwt_secret
 
-Frontend: Simple HTML pages with forms for register and login, storing JWT token in localStorage, and logout functionality.
+4. Compile TypeScript & Start Server (Dev Mode)
+   npm run dev
 
-Technologies
-Node.js & Express.js
+Make sure MongoDB is running on mongodb://localhost:27017/testdb or update the connection string in app.ts.
 
-TypeScript
+📦 Scripts
+npm run dev # Start in development (ts-node + nodemon)
+npm run build # Compile TypeScript to JS
+npm start # Run compiled JS from /dist/src
 
-bcryptjs for password hashing
+\*\* Features Walkthrough
+Visit /register.html to create a user account.
 
-jsonwebtoken for JWT token creation and verification
+Use the login form in index.html to sign in.
 
-dotenv for environment variable management
+After login:
 
-cors for Cross-Origin Resource Sharing
+Users can post topics.
 
-Simple file-based user store (in-memory array)
+Admins can delete topics.
 
-Setup Instructions
-1. Clone the repository
-git clonehttps://github.com/ms-eshghi/JWT.git
-cd jwt-auth-project
-2. Install dependencies
-npm install
-3. Create .env file in the root directory
-Create a .env file and add your JWT secret key:
-env
-SECRET=your_super_secret_key
-PORT=3000
-Replace your_super_secret_key with a secure, random string.
+Token is stored in localStorage and used for secure API access.
 
-Port is optional (default is 3000).
-
-4. Run the server
-npm run start
-or in development mode with auto-reloading:
-
-npm run dev
-API Endpoints
-Register a user
-URL: /api/user/register
-
-Method: POST
-
-Body:
-
-json
-{
-  "email": "user@example.com",
-  "password": "yourpassword"
-}
-Success response:
-
-{
-  "email": "user@example.com",
-  "password": "$2b$10$hashedpasswordstring..."
-}
-Error: 403 if email already exists.
-
-Login user
-URL: /api/user/login
-
-Method: POST
-
-Body:
-
-{
-  "email": "user@example.com",
-  "password": "yourpassword"
-}
-Success response:
-{
-  "token": "jwt_token_string_here"
-}
-Error: 403 if invalid credentials.
-
-Access protected route
-URL: /api/private
-
-Method: GET
-
-Headers:
-
-http
-Authorization: Bearer <token>
-Success response:
-
-{
-  "message": "This is protected secure route!"
-}
-Error: 401 Unauthorized if no or invalid token.
-
-Frontend Usage
-Access /register.html to register a new user.
-
-After successful registration, redirected to /login.html.
-
-Login page stores JWT token in localStorage as "token".
-
-Protected pages check for token in localStorage and call /api/private.
-
-Logout button clears token from localStorage and redirects to login page.
-
-Notes
-This project uses an in-memory array to store users, so data resets on server restart. Replace with a database for production.
-
-Always protect your JWT secret key.
-
-Use HTTPS in production to secure tokens during transit.
-
-Scripts
-npm run start - Run compiled JavaScript app with Node.
-
-npm run dev - Run app in development mode with TypeScript watch and auto restart.
-
-Dependencies
-express
-
-bcryptjs
-
-jsonwebtoken
-
-dotenv
-
-cors
-
-typescript
-
-ts-node-dev (dev dependency)
-
+Logout resets UI and removes token.

@@ -3,19 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/styles.css">
-    <title>Image Gallery</title>
+    
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <title>Forum App</title>
     <script src="./js/index.js" defer></script>
 </head>
 <body>
     
-    <div id="list-box">
-        <h3>Active Users</h3>
-        <ul id="user-list"></ul>
-    </div>
- <button id="logout">Logout</button>
+   <nav>
+    <div class="nav-wrapper">
+      <ul class="right">
+        <li>
+          <form id="loginForm" class="row">
+            <div class="input-field col">
+              <input id="email" class="navbar-input" type="email" placeholder="Email">
+            </div>
+            <div class="input-field col">
+              <input id="password" class="navbar-input" type="password" placeholder="Password">
+            </div>
+            <div class="col">
+              <button type="submit" class="btn waves-effect waves-light">Login</button>
+            </div>
+            <div class="col">
+              <a href="register.html" class="btn waves-effect waves-light">Register</a>
+            </div>
+          </form>
+        </li>
+        <li id="logout-li">
+          <span id="usernameDisplay" style="margin-right: 10px; color: white;"></span>
+<button id="logoutBtn" style="display:none;" class="btn waves-effect waves-light">Logout</button>
 
-    <p id="error"></p>
+      </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div id="topicForm"></div>
+    <div id="topics"></div>
+  </div>
+
 
 </body>
 

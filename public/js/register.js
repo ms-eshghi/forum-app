@@ -1,41 +1,27 @@
+document.getElementById('registerForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const isAdmin = document.getElementById('isAdmin').checked;
 
-const initializeRegister = () => {
-    document.getElementById("registerForm").addEventListener("submit", (event) => {
-        fetchData(event)
-    })
-}
+      try {
+        const res = await fetch('http://localhost:3000/api/user/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, username, password, isAdmin })
+        });
 
-const fetchData = async (event) => {
-    event.preventDefault()
+        const data = await res.json();
 
-    const formData = {
-        email: event.target.email.value,
-        password: event.target.password.value,
-    }
-
-    try {
-        const response = await fetch("/api/user/register",  {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
-        if (response.status === 403) {
-      alert('Email already registered. Please use a different one.');
-      return;
-    }
-        if (!response.ok) {
-            document.getElementById("error").innerText = "Error when trying to register. Please try again."
+        if (res.ok) {
+          alert('Registration successful');
+          window.location.href = '/index.html';
         } else {
-            window.location.href = "/login.html"
+          alert(data.message || (data.errors && data.errors.map(e => e.msg).join(', ')));
         }
-
-    } catch (error) {
-        console.log(`Error while trying to register: ${error.message}`)
-    }
-
-}
-
-
-initializeRegister()
+      } catch (err) {
+        alert('An error occurred during registration.');
+        console.error(err);
+      }
+    });
