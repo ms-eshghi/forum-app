@@ -99,6 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const delBtn = document.createElement('button');
       delBtn.className = 'btn waves-effect waves-light';
       delBtn.textContent = 'Delete';
+      delBtn.id = 'deleteTopic';     
       delBtn.classList.add('deleteTopic');
 
       delBtn.onclick = async () => {
@@ -128,18 +129,21 @@ window.addEventListener('DOMContentLoaded', () => {
     function renderPostForm() {
       const form = document.getElementById('topicForm');
       form.innerHTML = `
-        <div class="input-field">
-          <input id="topicTitle" type="text" placeholder="Title">
-        </div>
-        <div class="input-field">
-          <textarea id="topicText" class="materialize-textarea" placeholder="Write your post..."></textarea>
-        </div>
-        <div>
-        <button id="postTopic" class="btn waves-effect waves-light" type="submit">Post</button>
-        </div>
+        <form id="postTopicForm" class="row">
+    <div class="input-field col s12">
+      <input id="topicTitle" type="text" placeholder="Title" required>
+    </div>
+    <div class="input-field col s12">
+      <textarea id="topicText" class="materialize-textarea" placeholder="Write your post..." required></textarea>
+    </div>
+    <div class="col s12">
+      <button id="postTopic" class="btn waves-effect waves-light" type="submit">Post</button>
+    </div>
+  </form>
       `;
 
-      document.getElementById('postTopic').addEventListener('click', async () => {
+      document.getElementById('postTopicForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
         const title = document.getElementById('topicTitle').value;
         const content = document.getElementById('topicText').value;
         await fetch('/api/topic', {
