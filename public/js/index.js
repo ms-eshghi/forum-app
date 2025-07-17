@@ -58,7 +58,7 @@ isAdmin = false;
 let isAdmin = false;
 window.addEventListener('DOMContentLoaded', () => {
   token = localStorage.getItem('token');
- const isAdmin = localStorage.getItem('isAdmin') === 'true';
+isAdmin = localStorage.getItem('isAdmin') === 'true';
 
 
   if (token) {
@@ -157,7 +157,10 @@ window.addEventListener('DOMContentLoaded', () => {
           },
           body: JSON.stringify({ title, content })
         });
-        fetchTopics();
+        document.getElementById('topicTitle').value = '';
+  document.getElementById('topicText').value = '';
+  
+        fetchTopics(isAdmin);
       });
     }
 
